@@ -1,0 +1,51 @@
+-- This file contains Azure Synapse Analytics scripts
+-- Purpose: Push data from Azure Synapse (serverless SQL) to storage account (gold layer)
+
+
+-- creating master key and credential
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'd8TySvmWr4rPBUk';
+CREATE DATABASE SCOPED CREDENTIAL sqladminuser WITH IDENTITY = 'Managed Identity';
+GO
+
+-- create external file format
+CREATE EXTERNAL FILE FORMAT extfileformat WITH (
+    FORMAT_TYPE = PARQUET,
+    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'
+);
+GO
+
+-- create external data source
+CREATE EXTERNAL DATA SOURCE goldlayer WITH (
+    LOCATION = 'https://olistproject.dfs.core.windows.net/olistdata/gold/',
+    CREDENTIAL = sqladminuser
+);
+GO
+
+
+-- create exteral table which will present in the storage account(gold layer)
+CREATE EXTERNAL TABLE gold.finaltable WITH (
+        LOCATION = 'Serving',
+        DATA_SOURCE = goldlayer,
+        FILE_FORMAT = extfileformat
+) AS
+SELECT * FROM gold.final;
+GO
+
+CREATE EXTERNAL TABLE gold.finaltable1 WITH (
+        LOCATION = 'cancled_and_unavailable',
+        DATA_SOURCE = goldlayer,
+        FILE_FORMAT = extfileformat
+) AS
+SELECT * FROM gold.analysis1;
+GO
+
+CREATE EXTERNAL TABLE gold.finaltable2 WITH (
+        LOCATION = 'other_order_status',
+        DATA_SOURCE = goldlayer,
+        FILE_FORMAT = extfileformat
+) AS
+SELECT * FROM gold.analysis2;
+GO
+
+
+
