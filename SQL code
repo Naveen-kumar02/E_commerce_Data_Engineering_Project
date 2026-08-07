@@ -1,6 +1,43 @@
 -- This file contains Azure Synapse Analytics scripts
 -- Purpose: Push data from Azure Synapse (serverless SQL) to storage account (gold layer)
 
+-- 1) creating schema gold 
+create schema gold;
+GO
+
+
+-- 2) creating gold_final(whole data)
+
+create view gold.final 
+as 
+    select * from 
+    OPENROWSET(
+        BULK  'https://olistproject.blob.core.windows.net/olistdata/silver/',
+        format ='PARQUET'
+    ) AS result1
+GO
+
+
+-- 3) CREATE ANOTHER VIEW gold.analysis1 (having only canceled and unavailable)
+
+create view gold.analysis1
+as 
+    select * from gold.final 
+    where order_status in ('canceled','unavailable')
+GO
+
+-- 4) CREATE ANOTHER VIEW gold.analysis2 (not having only canceled and unavailable)
+
+create view gold.analysis2
+as 
+    select * from gold.final 
+    where order_status not in ('canceled','unavailable')
+GO 
+
+
+
+------------------------------------------------------------------------------------
+-- the below code is the code to push the data from azure synapse into the adls gen2
 
 -- creating master key and credential
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'd8TySvmWr4rPBUk';
