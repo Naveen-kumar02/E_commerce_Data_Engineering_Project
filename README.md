@@ -26,4 +26,19 @@ Open it with [draw.io](https://app.diagrams.net/) or the VS Code Draw.io extensi
 6. **Consumption**
    The Gold layer serves as the analytics-ready data source for **Data Analysts** and **Data Scientists**, enabling dashboards, reporting, and downstream machine learning workflows.
 
-## 📁 Project Structure
+### 🏗️ Medallion Architecture Overview
+
+| Layer | Purpose | Storage | Tool Used |
+|-------|---------|---------|-----------|
+| **Bronze** | Raw, unprocessed data | Azure Blob Storage | Azure Data Factory |
+| **Silver** | Cleaned, transformed data | Azure Blob Storage | Azure Databricks |
+| **Gold** | Curated, analytics-ready data | Azure Data Lake Storage Gen2 | Azure Synapse Analytics |
+
+## 🛠️ Tech Stack
+
+- **Orchestration:** Azure Data Factory
+- **Data Processing/Transformation:** Azure Databricks (PySpark/Spark)
+- **Data Warehousing & Analytics:** Azure Synapse Analytics
+- **Storage:** Azure Blob Storage, Azure Data Lake Storage (ADLS) Gen2
+- **Ingestion/Exploration:** Python, Jupyter Notebook
+- **Query Layer:** SQL
