@@ -4,7 +4,7 @@ An end-to-end data engineering pipeline that ingests, processes, and stores e-co
 
 ## 📐 Architecture
 
-The overall pipeline architecture is documented in [`architecture_diagram.drawio`](./architecture_diagram.drawio).
+The overall pipeline architecture is documented in [`architecture_diagram.drawio`](./architecture_diagram.png).
 Open it with [draw.io](https://app.diagrams.net/) or the VS Code Draw.io extension to view/edit.
 
 **Pipeline Overview:**
