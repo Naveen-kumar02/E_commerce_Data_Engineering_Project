@@ -37,6 +37,7 @@ Open it with [draw.io](https://app.diagrams.net/) or the VS Code Draw.io extensi
 ## 🛠️ Tech Stack
 
 - **Orchestration:** Azure Data Factory
+- Data source [Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 - **Data Processing/Transformation:** Azure Databricks (PySpark/Spark)
 - **Data Warehousing & Analytics:** Azure Synapse Analytics
 - **Storage:** Azure Blob Storage, Azure Data Lake Storage (ADLS) Gen2
